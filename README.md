@@ -24,8 +24,6 @@
 
  ```shell
  pip install requests
- pip install time
- pip install datetime
  pip install colorama
  pip install tabulate
  pip install wcwidth
