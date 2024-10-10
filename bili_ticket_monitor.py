@@ -1,7 +1,7 @@
 """
 Bili Ticket Monitor
 
-This script monitors the status of tickets for a specific event on Bilibili.
+Monitors ticket status for a specific event on Bilibili.
 """
 
 import time
@@ -30,19 +30,11 @@ HEADERS = {
 init(autoreset=True)
 
 def clear_screen_line():
-    """Clear the current line in the terminal."""
-    print("\033[F\033[K", end="")  # 清除终端当前行的内容
+    """Clear the current terminal line."""
+    print("\033[F\033[K", end="")
 
 def fetch_ticket_status(url, headers):
-    """Fetch the ticket status from the Bilibili API.
-
-    Args:
-        url (str): The API endpoint URL.
-        headers (dict): HTTP headers for the request.
-
-    Returns:
-        tuple: Event name and the table of ticket information, or (None, None) on error.
-    """
+    """Fetch ticket status from Bilibili API."""
     try:
         response = requests.get(url, headers=headers, timeout=TIMEOUT)
         response.raise_for_status()
@@ -66,25 +58,19 @@ def fetch_ticket_status(url, headers):
 
     except requests.exceptions.RequestException as e:
         if e.response or e.response.status_code == 412:
-            print(Fore.RED + "IP被风控，请等待一段时间后继续，否则将会引发更大的问题")
+            print(Fore.RED + "IP被风控，请稍后重试")
         else:
-            print(Fore.RED + f"请求错误(请检查网络连接): {e}")
+            print(Fore.RED + f"请求错误: {e}")
         return None, None
 
 def print_ticket_table(name, table):
-    """Print the ticket table with color coding.
-
-    Args:
-        name (str): Event name.
-        table (list): List of tickets with their descriptions and status.
-    """
+    """Print ticket table with color coding."""
     if not table:
         return
 
     max_desc_len = max(len(row[0]) for row in table)
     max_status_len = max(len(row[1]) for row in table)
 
-    # 计算真实显示字符长度
     max_display_desc_len = calculate_display_width(
         max(table, key=lambda x: len(x[0]))[0]
         .replace('）', ')').replace('（', '(').replace('：', ':')
@@ -94,7 +80,6 @@ def print_ticket_table(name, table):
     print(f"{Fore.CYAN}{'票种'.ljust(max_display_desc_len)}{'状态'.rjust(max_status_len)}")
     print('-' * (max_desc_len + max_status_len + 16))
 
-    # 用tabulate库打印
     all_data = [
         [row[0].replace('）', ')').replace('（', '(').replace('：', ':'), color_status(row[1])]
         for row in table
@@ -102,25 +87,11 @@ def print_ticket_table(name, table):
     print(tabulate(all_data, tablefmt='plain'))
 
 def calculate_display_width(text):
-    """Calculate the display width of the text.
-
-    Args:
-        text (str): The text to calculate.
-
-    Returns:
-        int: The total display width of the text.
-    """
+    """Calculate display width of the text."""
     return sum(wcswidth(char) for char in text)
 
 def color_status(status):
-    """Color the ticket status based on its current value.
-
-    Args:
-        status (str): The status text.
-
-    Returns:
-        str: The colored status string.
-    """
+    """Color ticket status based on its value."""
     color_map = {
         "已售罄": Fore.RED,
         "已停售": Fore.RED,
@@ -132,28 +103,20 @@ def color_status(status):
     return color_map.get(status, Fore.WHITE) + status + Style.RESET_ALL
 
 def has_table_changed(old_table, new_table):
-    """Check if the ticket table has changed.
-
-    Args:
-        old_table (list): The previous ticket table.
-        new_table (list): The new ticket table.
-
-    Returns:
-        bool: True if the table has changed, False otherwise.
-    """
+    """Check if the ticket table has changed."""
     return old_table != new_table
 
 def display_time():
-    """Display the current time."""
+    """Display current time."""
     print(f"{Fore.GREEN}当前时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 def main():
-    """Main function to monitor ticket status and refresh the display."""
+    """Monitor ticket status and refresh display."""
     last_table = None
     name, new_table = fetch_ticket_status(BASE_URL, HEADERS)
 
     if new_table is None:
-        return  # 如果没有数据则退出
+        return
 
     print_ticket_table(name, new_table)
     last_table = new_table
@@ -163,7 +126,7 @@ def main():
             if time.time() % TICKET_REFRESH_INTERVAL < SLEEP_INTERVAL:
                 name, new_table = fetch_ticket_status(BASE_URL, HEADERS)
                 if new_table is None:
-                    break  # 如果没有新的数据则退出
+                    break
 
                 if has_table_changed(last_table, new_table):
                     print_ticket_table(name, new_table)
@@ -175,10 +138,10 @@ def main():
 
         except requests.exceptions.RequestException as e:
             if e.response or e.response.status_code == 412:
-                print(Fore.RED + "IP被风控，请等待一段时间后继续，否则将会引发更大的问题")
+                print(Fore.RED + "IP被风控，请稍后重试")
             else:
-                print(Fore.RED + f"请求错误(请检查网络连接): {e}")
-            break  # 出现错误时停止循环
+                print(Fore.RED + f"请求错误: {e}")
+            break
 
 if __name__ == "__main__":
     main()
