@@ -1,7 +1,5 @@
 """
 Bili Ticket Monitor
-
-Monitors ticket status on Bilibili.
 """
 
 import time
