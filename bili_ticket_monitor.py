@@ -12,7 +12,7 @@ from tabulate import tabulate
 from wcwidth import wcswidth
 
 # 可以修改的东西
-TICKET_ID = "请替换这里"  # 请替换为实际票务ID
+TICKET_ID = "85939"  # 请替换为实际票务ID
 TICKET_REFRESH_INTERVAL = 2  # 票务信息刷新间隔，1秒以下可能会被风控
 TIMEOUT = 100  # 请求超时时间，根据网络状况设置
 
@@ -33,31 +33,30 @@ def clear_screen_line():
     """Clear the current terminal line."""
     print("\033[F\033[K", end="")
 
-def fetch_ticket_status(url, headers):
+def fetch_ticket_status():
     """Fetch ticket status from Bilibili API."""
     try:
-        response = requests.get(url, headers=headers, timeout=TIMEOUT)
+        response = requests.get(BASE_URL, headers=HEADERS, timeout=TIMEOUT)
         response.raise_for_status()
         data = response.json().get('data', {})
-        tickets = data.get('screen_list', [])
         name = data.get('name', '')
+        tickets = [
+            [
+                ticket.get('screen_name', '') + ticket.get('desc', '').replace("普通票", "普通票"),
+                ticket.get('sale_flag', {}).get('display_name', '')
+            ]
+            for screen in data.get('screen_list', [])
+            for ticket in screen.get('ticket_list', [])
+        ]
 
         if not tickets:
             print(Fore.RED + "数据为空，请检查票务ID")
             return None, None
 
-        table = [
-            [
-                ticket.get('screen_name', '') + ticket.get('desc', '').replace("普通票", "普通票"),
-                ticket.get('sale_flag', {}).get('display_name', '')
-            ]
-            for screen in tickets for ticket in screen.get('ticket_list', [])
-        ]
+        return name, tickets
 
-        return name, table
-
-    except requests.exceptions.RequestException as e:
-        if e.response or e.response.status_code == 412:
+    except requests.RequestException as e:
+        if hasattr(e, 'response') and e.response and e.response.status_code == 412:
             print(Fore.RED + "IP被风控，请稍后重试")
         else:
             print(Fore.RED + f"请求错误: {e}")
@@ -68,27 +67,19 @@ def print_ticket_table(name, table):
     if not table:
         return
 
-    max_desc_len = max(len(row[0]) for row in table)
+    max_desc_len = max(calculate_display_width(row[0]) for row in table)
     max_status_len = max(len(row[1]) for row in table)
 
-    max_display_desc_len = calculate_display_width(
-        max(table, key=lambda x: len(x[0]))[0]
-        .replace('）', ')').replace('（', '(').replace('：', ':')
-    )
-
     print(f"{Style.BRIGHT}{name}")
-    print(f"{Fore.CYAN}{'票种'.ljust(max_display_desc_len)}{'状态'.rjust(max_status_len)}")
+    print(f"{Fore.CYAN}{'票种'.ljust(max_desc_len)}{'状态'.rjust(max_status_len)}")
     print('-' * (max_desc_len + max_status_len + 16))
 
-    all_data = [
-        [row[0].replace('）', ')').replace('（', '(').replace('：', ':'), color_status(row[1])]
-        for row in table
-    ]
+    all_data = [[row[0], color_status(row[1])] for row in table]
     print(tabulate(all_data, tablefmt='plain'))
 
 def calculate_display_width(text):
     """Calculate display width of the text."""
-    return sum(wcswidth(char) for char in text)
+    return wcswidth(text)
 
 def color_status(status):
     """Color ticket status based on its value."""
@@ -113,8 +104,8 @@ def display_time():
 def main():
     """Monitor ticket status and refresh display."""
     last_table = None
-    name, new_table = fetch_ticket_status(BASE_URL, HEADERS)
 
+    name, new_table = fetch_ticket_status()
     if new_table is None:
         return
 
@@ -124,7 +115,7 @@ def main():
     while True:
         try:
             if time.time() % TICKET_REFRESH_INTERVAL < SLEEP_INTERVAL:
-                name, new_table = fetch_ticket_status(BASE_URL, HEADERS)
+                name, new_table = fetch_ticket_status()
                 if new_table is None:
                     break
 
@@ -136,8 +127,8 @@ def main():
             display_time()
             time.sleep(SLEEP_INTERVAL)
 
-        except requests.exceptions.RequestException as e:
-            if e.response or e.response.status_code == 412:
+        except requests.RequestException as e:
+            if hasattr(e, 'response') and e.response and e.response.status_code == 412:
                 print(Fore.RED + "IP被风控，请稍后重试")
             else:
                 print(Fore.RED + f"请求错误: {e}")
