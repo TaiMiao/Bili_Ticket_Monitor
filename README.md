@@ -1,6 +1,7 @@
 # Bili_Ticket_Monitor
 
-![画板 1@0 25x](https://github.com/user-attachments/assets/dfeba126-5445-4206-8b44-b4cd353de334)
+![进入二次元](https://github.com/user-attachments/assets/7ac8b7c7-3cfd-4438-a7ce-e7ab31dfe19a)
+
 
 开源免费，全网最先进的余票检测脚本，实时监测Bilibili会员购余票状态(不包含抢票)  
   
