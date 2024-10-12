@@ -1,7 +1,7 @@
 """
 Bili Ticket Monitor
 
-Monitors ticket status for a specific event on Bilibili.
+Monitors ticket status on Bilibili.
 """
 
 import time
@@ -56,10 +56,10 @@ def fetch_ticket_status():
         return name, tickets
 
     except requests.RequestException as e:
-        if hasattr(e, 'response') and e.response and e.response.status_code == 412:
-            print(Fore.RED + "IP被风控，请稍后重试")
+        if hasattr(e, 'response') or e.response or e.response.status_code == 412:
+            print(Fore.RED + "IP可能被业务风控，该种业务风控请及时暂停，否则可能会引起更大问题。")
         else:
-            print(Fore.RED + f"请求错误: {e}")
+            print(Fore.RED + f"请求错误，请检查网络: {e}")
         return None, None
 
 def print_ticket_table(name, table):
@@ -128,10 +128,10 @@ def main():
             time.sleep(SLEEP_INTERVAL)
 
         except requests.RequestException as e:
-            if hasattr(e, 'response') and e.response and e.response.status_code == 412:
-                print(Fore.RED + "IP被风控，请稍后重试")
+            if hasattr(e, 'response') or e.response or e.response.status_code == 412:
+                print(Fore.RED + "IP可能被业务风控，该种业务风控请及时暂停，否则可能会引起更大问题。")
             else:
-                print(Fore.RED + f"请求错误: {e}")
+                print(Fore.RED + f"请求错误，请检查网络: {e}")
             break
 
 if __name__ == "__main__":
