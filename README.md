@@ -19,17 +19,13 @@
 
 ### 1. 安装
 
- - 请先安装Python和pip
-
+ - 请先安装Python并克隆本仓库
 
  ```shell
- pip install requests
- pip install colorama
- pip install tabulate
- pip install wcwidth
+cd Bili_Ticket_Monitor
+pip install -r requirements.txt
 ```
 ### 2. 配置
-- 下载`bili_ticket_monitor.py`
 - 如图，将你需要监测的票务ID填入对应的地方，其余配置根据文件内注释可自行更改，不让改的地方请别乱改
 ![image](https://github.com/user-attachments/assets/617230f6-cad2-461d-8787-9ce46294f494)
 
