@@ -28,7 +28,8 @@ pip install -r requirements.txt
 ```
 ### 2. 配置
 - 如图，将你需要监测的票务ID填入对应的地方，其余配置根据文件内注释可自行更改，不让改的地方请别乱改
-![image](https://github.com/user-attachments/assets/617230f6-cad2-461d-8787-9ce46294f494)
+![image](https://github.com/user-attachments/assets/be4dbaad-b875-4090-8f67-3cbe255a57d7)
+
 
 
 
