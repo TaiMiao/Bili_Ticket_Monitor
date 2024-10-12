@@ -2,8 +2,8 @@ name: Up requirement
 
 on:
   push:
-    branches: [master]
-  workflow_dispatch:
+    paths:
+      - '**.py'
 
 
 jobs:
