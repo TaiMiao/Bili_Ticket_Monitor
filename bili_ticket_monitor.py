@@ -8,10 +8,10 @@ from tabulate import tabulate
 from wcwidth import wcswidth
 
 # 可修改的东西
-TICKET_ID = "请替换这里"  # 请替换为实际票务ID
+TICKET_ID = "91354"  # 请替换为实际票务ID
 TICKET_REFRESH_INTERVAL = 2  # 票务信息刷新间隔，1秒以下可能会被风控
 TIMEOUT = 10  # 请求超时时间，根据网络状况设置
-MAX_RETRIES = 3  # 网络连接最大重试次数
+MAX_RETRIES = 3  # 网络连接失败后最大重试次数
 
 # 不要动下面的东西！！！
 BASE_URL = f"https://show.bilibili.com/api/ticket/project/getV2?version=134&id={TICKET_ID}"
@@ -27,11 +27,11 @@ HEADERS = {
 init(autoreset=True)
 
 def clear_screen_line():
-    """Clear the current terminal line."""
+    """清除当前终端行。"""
     print("\033[F\033[K", end="")
 
 def fetch_ticket_status(max_retries=MAX_RETRIES):
-    """Fetch ticket status from Bilibili API, with retry on failure."""
+    """从Bilibili API获取票务状态，若失败则重试。"""
     for attempt in range(max_retries):
         try:
             response = requests.get(BASE_URL, headers=HEADERS, timeout=TIMEOUT)
@@ -54,8 +54,10 @@ def fetch_ticket_status(max_retries=MAX_RETRIES):
             return name, tickets
 
         except requests.RequestException as e:
-            if e.response.status_code == 412:
-                print(Fore.RED + "IP可能被业务风控，该种业务风控请及时暂停，否则可能会引起更大问题。")
+            # 检查 e.response 是否存在后再访问 status_code
+            if e.response is not None and e.response.status_code == 412:
+                print("")
+                print(Fore.RED + "IP可能被业务风控，请暂停操作，否则会引起更大问题。")
                 return None, None
             print(Fore.RED + f"请求错误，请检查网络: {e}")
             if attempt < max_retries - 1:
@@ -66,26 +68,24 @@ def fetch_ticket_status(max_retries=MAX_RETRIES):
     return None, None
 
 def print_ticket_table(name, table):
-    """Print ticket table with color coding."""
-    if not table:
-        return
-
+    """打印票务状态表，并根据状态进行颜色编码。"""
     max_desc_len = max(calculate_display_width(row[0]) for row in table)
     max_status_len = max(len(row[1]) for row in table)
 
+    print("")
     print(f"{Style.BRIGHT}{name}")
     print(f"{Fore.CYAN}{'票种'.ljust(max_desc_len)}{'状态'.rjust(max_status_len)}")
-    print('-' * (max_desc_len + max_status_len + 16))
+    print('-' * (max_desc_len + max_status_len + 8))
 
     all_data = [[row[0], color_status(row[1])] for row in table]
     print(tabulate(all_data, tablefmt='plain'))
 
 def calculate_display_width(text):
-    """Calculate display width of the text."""
+    """计算文本的显示宽度。"""
     return wcswidth(text)
 
 def color_status(status):
-    """Color ticket status based on its value."""
+    """根据票务状态的值为其添加颜色。"""
     color_map = {
         "已售罄": Fore.RED,
         "已停售": Fore.RED,
@@ -97,15 +97,15 @@ def color_status(status):
     return color_map.get(status, Fore.WHITE) + status + Style.RESET_ALL
 
 def has_table_changed(old_table, new_table):
-    """Check if the ticket table has changed."""
+    """检查票务状态表是否发生变化。"""
     return old_table != new_table
 
 def display_time():
-    """Display current time without clearing the previous line."""
-    print(f"{Fore.GREEN}当前时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", end='\r')
+    """在不清除上一行的情况下显示当前时间。"""
+    print(f"{Fore.GREEN}当前时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", end='\r', flush=True)
 
 def main():
-    """Monitor ticket status and refresh display."""
+    """监控票务状态并刷新显示。"""
     last_table = None
     last_request_time = 0  # 上次请求的时间
 
