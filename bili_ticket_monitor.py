@@ -2,13 +2,14 @@
 
 import time
 from datetime import datetime
+import os
 import requests
 from colorama import Fore, Style, init
 from tabulate import tabulate
 from wcwidth import wcswidth
 
 # 可修改的东西
-TICKET_ID = "请替换这里"  # 请替换为实际票务ID
+TICKET_ID = "85939"  # 请替换为实际票务ID
 TICKET_REFRESH_INTERVAL = 2  # 票务信息刷新间隔，1秒以下可能会被风控
 TIMEOUT = 10  # 请求超时时间，根据网络状况设置
 MAX_RETRIES = 3  # 网络连接失败后最大重试次数
@@ -26,9 +27,12 @@ HEADERS = {
 # 初始化颜色输出
 init(autoreset=True)
 
-def clear_screen_line():
-    """清除当前终端行。"""
-    print("\033[F\033[K", end="")
+def clear_screen():
+    """清除屏幕，根据操作系统类型进行判断。"""
+    if os.name == 'nt':  # Windows系统
+        os.system('cls')
+    else:  # Mac和Linux系统
+        os.system('clear')
 
 def fetch_ticket_status(max_retries=MAX_RETRIES):
     """从Bilibili API获取票务状态，若失败则重试。"""
@@ -54,7 +58,6 @@ def fetch_ticket_status(max_retries=MAX_RETRIES):
             return name, tickets
 
         except requests.RequestException as e:
-            # 检查 e.response 是否存在后再访问 status_code
             if e.response is not None and e.response.status_code == 412:
                 print("")
                 print(Fore.RED + "IP可能被业务风控，请暂停操作，否则会引起更大问题。")
@@ -132,6 +135,7 @@ def main():
 
                 # 如果票务状态发生变化，更新显示
                 if has_table_changed(last_table, new_table):
+                    clear_screen()  # 清屏后重新打印表格
                     print_ticket_table(name, new_table)
                     last_table = new_table
 
