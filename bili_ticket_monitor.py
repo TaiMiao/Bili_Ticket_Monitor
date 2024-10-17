@@ -9,7 +9,7 @@ from tabulate import tabulate
 from wcwidth import wcswidth
 
 # 可修改的东西
-TICKET_ID = "85939"  # 请替换为实际票务ID
+TICKET_ID = "请替换这里"  # 请替换为实际票务ID
 TICKET_REFRESH_INTERVAL = 2  # 票务信息刷新间隔，1秒以下可能会被风控
 TIMEOUT = 10  # 请求超时时间，根据网络状况设置
 MAX_RETRIES = 3  # 网络连接失败后最大重试次数
