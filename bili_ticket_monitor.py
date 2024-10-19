@@ -40,7 +40,7 @@ def fetch_data(max_retries=MAX_RETRIES, pause_event=None):
             name = data.get('name', '')  # 获取名称
             tickets = [
                 [
-                    ticket.get('screen_name', '') + ticket.get('desc', ''),
+                    ticket.get('screen_name', '') + " " + ticket.get('desc', ''),
                     ticket.get('sale_flag', {}).get('display_name', '')
                 ]
                 for screen in data.get('screen_list', [])
