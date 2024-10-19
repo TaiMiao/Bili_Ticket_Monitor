@@ -30,11 +30,13 @@ pip install -r requirements.txt
 
 ### 3. 运行
 - 配置完成后直接运行
-- #### 各功能展示：   
-![功能展示](https://github.com/user-attachments/assets/3d738a87-e7da-469e-9ee6-955de59253f3)
+
+### 4. 各功能展示：   
+![功能展示](https://github.com/user-attachments/assets/44115f8b-8ef4-4fe0-b01c-caa65cbb83b4)
 
 
-### 4. 注意事项
+
+### 5. 注意事项
 - 请求间隔时间太短可能会被业务风控
 - 请不要在B站过度宣传此脚本
 - 转载此脚本时请标注出处
