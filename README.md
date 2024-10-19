@@ -30,8 +30,9 @@ pip install -r requirements.txt
 
 ### 3. 运行
 - 配置完成后直接运行
-- 效果：   
-![效果](https://github.com/user-attachments/assets/98c86c2a-dcdf-4721-9a25-a8649b1d0f93)
+- #### 各功能展示：   
+![功能展示](https://github.com/user-attachments/assets/3d738a87-e7da-469e-9ee6-955de59253f3)
+
 
 ### 4. 注意事项
 - 请求间隔时间太短可能会被业务风控
