@@ -17,7 +17,7 @@
 - 你懂得如何[提问](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md)
 
 ### 1. 安装
- - 请先安装Python并克隆本仓库   
+ - 请先安装Python并克隆repo   
 ```shell
 cd Bili_Ticket_Monitor
 pip install -r requirements.txt
@@ -38,6 +38,7 @@ pip install -r requirements.txt
 
 ### 5. 注意事项
 - 请求间隔时间太短可能会被业务风控
+- Fork repo时记得给个star
 - 请不要在B站过度宣传此脚本
 - 转载此脚本时请标注出处
 #### 祝大家都能有美好的漫展体验(っ^_^)っ
