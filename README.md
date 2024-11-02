@@ -3,6 +3,7 @@
 ![进入二次元](https://github.com/user-attachments/assets/7ac8b7c7-3cfd-4438-a7ce-e7ab31dfe19a)
 
 开源免费，全网最先进的余票检测脚本，实时监测Bilibili会员购余票状态(不包含抢票)   
+模块交流群(闲聊群)：https://t.me/TaiMiao_Group
    
 推荐使用此脚本的漫展(有回流票的大型漫展)：BW (Bilibili World)、BML (Bilibili Macro Link)、CP (Comicup)、萤火虫......  
 
