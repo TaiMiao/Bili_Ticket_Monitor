@@ -6,6 +6,7 @@
 模块交流群(闲聊群)：https://t.me/TaiMiao_Group
    
 推荐使用此脚本的漫展(有回流票的大型漫展)：BW (Bilibili World)、BML (Bilibili Macro Link)、CP (Comicup)、萤火虫......  
+近期热门漫展/演出：上海·TOGENASHI TOGEARI Live「凛音の理」(Girls Band Cry GBC)   
 
 > [!NOTE]
 > 本程序仅供学习交流, 不得用于商业用途。   
