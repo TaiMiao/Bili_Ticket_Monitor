@@ -17,6 +17,7 @@ MAX_RETRIES = 3  # 网络连接失败后最大重试次数
 
 # 别动！！
 API_URL = f"https://show.bilibili.com/api/ticket/project/getV2?version=134&id={TICKET_ID}"
+HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36"
