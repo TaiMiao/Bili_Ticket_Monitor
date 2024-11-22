@@ -2,11 +2,11 @@
 
 ![进入二次元](https://github.com/user-attachments/assets/7ac8b7c7-3cfd-4438-a7ce-e7ab31dfe19a)
 
-开源免费，全网最先进的余票检测脚本，实时监测Bilibili会员购漫展演出余票状态(不包含抢票)   
+开源免费，实时监测Bilibili会员购漫展演出余票状态(无抢票功能)   
 脚本交流群(闲聊群)：https://t.me/TaiMiao_Group
    
 推荐使用此脚本的漫展(有回流票的大型漫展)：BW (Bilibili World)、BML (Bilibili Macro Link)、CP (Comicup)、萤火虫......  
-近期热门漫展/演出：上海·TOGENASHI TOGEARI Live「凛音の理」(Girls Band Cry GBC)   
+
 
 > [!NOTE]
 > 本程序仅供学习交流, 不得用于商业用途。   
@@ -38,7 +38,7 @@ pip install -r requirements.txt
 ```
 
 ### 2. 配置
-- 如图，将你需要监测的票务ID填入对应的地方，其余配置根据文件内注释可自行更改，不让改的地方请别乱改
+- 如图，将你需要监测的票务ID填入对应的地方，其余配置根据文件内注释可自行更改
 ![教学](https://github.com/user-attachments/assets/549d4f00-ea87-41bc-ae46-e84e09d85df6)
 
 
