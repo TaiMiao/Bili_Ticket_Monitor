@@ -11,7 +11,7 @@ from wcwidth import wcswidth
 
 # 可以修改的配置
 TICKET_ID = "请替换这里"  # 请替换为实际票务ID
-REFRESH_INTERVAL = 2  # 票务信息刷新间隔（秒），设置太低可能会被风控
+REFRESH_INTERVAL = 1  # 票务信息刷新间隔（秒），设置太低可能会被风控
 TIMEOUT = 50  # 请求超时时间，根据网络状况设置
 MAX_RETRIES = 3  # 网络连接失败后最大重试次数
 
@@ -24,13 +24,13 @@ HEADERS = {
     )
 }
 
-
 def clear_screen():
     """使用ANSI转义序列清除屏幕"""
     print("\033c", end="")
 
 def fetch_data(max_retries=MAX_RETRIES, pause_event=None):
     """获取票务状态"""
+    retry_for_empty_data = True  # 是否重试一次
     for attempt in range(max_retries):
         try:
             response = requests.get(API_URL, headers=HEADERS, timeout=TIMEOUT)
@@ -47,13 +47,18 @@ def fetch_data(max_retries=MAX_RETRIES, pause_event=None):
             ]
 
             if not tickets:
-                print(Fore.RED + "\n数据为空，请检查票务ID")
+                if retry_for_empty_data:
+                    print(Fore.YELLOW + "\n数据为空，重试一次...")
+                    retry_for_empty_data = False  # 标记已重试
+                    time.sleep(1)
+                    continue  # 重试一次
+                print(Fore.RED + "\n数据仍为空，请检查票务ID")
                 return None, None
 
             if attempt > 0:  # 当重试成功时
-                print(Fore.GREEN + "\n重连成功")
+                print(Fore.GREEN + "\n重试成功")
                 show_table(name, tickets, pause_event=pause_event)  # 重新打印表格
-
+                retry_for_empty_data = True
             return name, tickets
 
         except requests.RequestException as e:
