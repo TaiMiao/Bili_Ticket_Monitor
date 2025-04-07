@@ -3,10 +3,12 @@
 ![进入二次元](https://github.com/user-attachments/assets/7ac8b7c7-3cfd-4438-a7ce-e7ab31dfe19a)
 
 开源免费，实时监测Bilibili会员购漫展演出余票状态(无抢票功能)   
-脚本交流群(闲聊群)：https://t.me/TaiMiao_Group
+对于脚本有任何问题可以联系作者
+TG：https://t.me/TaiMiao_HK
+QQ：1502335861
    
-推荐使用此脚本的漫展(有回流票的大型漫展)：BW (Bilibili World)、BML (Bilibili Macro Link)、CP (Comicup)、萤火虫......  
-
+推荐使用此脚本的漫展(有回流票的大型漫展)：BW (Bilibili World)、BML (Bilibili Macro Link)、CP (Comicup)......  
+以上漫展作者将在购票链接公布后第一时间更新exe文件，其余漫展作者会挑选热门的更新
 
 > [!NOTE]
 > 本程序仅供学习交流, 不得用于商业用途。   
@@ -21,8 +23,8 @@
 - 无需安装python
 - 无需配置
 #### 缺点
+- #### 无法覆盖所有漫展/演出
 - 无法配置
-- 无法覆盖所有漫展/演出
 - 如需监控部分冷门展演请参见``二、源码运行``自行配置
 
 ## 二、源码运行
