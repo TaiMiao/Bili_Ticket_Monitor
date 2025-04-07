@@ -3,8 +3,8 @@
 ![进入二次元](https://github.com/user-attachments/assets/7ac8b7c7-3cfd-4438-a7ce-e7ab31dfe19a)
 
 开源免费，实时监测Bilibili会员购漫展演出余票状态(无抢票功能)   
-对于脚本有任何问题可以联系作者
-TG：https://t.me/TaiMiao_HK
+对于脚本有任何问题可以联系作者    
+TG：@TaiMiao_HK   
 QQ：1502335861
    
 推荐使用此脚本的漫展(有回流票的大型漫展)：BW (Bilibili World)、BML (Bilibili Macro Link)、CP (Comicup)......  
