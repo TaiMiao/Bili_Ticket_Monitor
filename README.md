@@ -47,8 +47,9 @@ pip install -r requirements.txt
 ### 3. 运行
 - 配置完成后直接运行
 
-### 4. 各功能展示：   
-![功能展示](https://github.com/user-attachments/assets/44115f8b-8ef4-4fe0-b01c-caa65cbb83b4)
+### 4. 效果展示：   
+![image](https://github.com/user-attachments/assets/32d09e0a-649a-402e-9d05-de37783dacd1)
+
 
 
 
