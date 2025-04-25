@@ -48,7 +48,8 @@ pip install -r requirements.txt
 - 配置完成后直接运行
 
 ### 4. 效果展示：   
-![image](https://github.com/user-attachments/assets/32d09e0a-649a-402e-9d05-de37783dacd1)
+![image](https://github.com/user-attachments/assets/7ec43732-24fb-4da9-9286-e343784c4701)
+
 
 
 
