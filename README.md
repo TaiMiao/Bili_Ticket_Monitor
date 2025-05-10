@@ -7,7 +7,7 @@
 TG：@TaiMiao_HK   
 QQ：1502335861
    
-推荐使用此脚本的漫展(有回流票的大型漫展)：BW (Bilibili World)、BML (Bilibili Macro Link)、CP (Comicup)......  
+推荐使用此脚本的漫展(有回流票的大型漫展)：BW (Bilibili World)、BML (Bilibili Macro Link)......  
 以上漫展作者将在购票链接公布后第一时间更新exe文件，其余漫展作者会挑选热门的更新
 
 > [!NOTE]
