@@ -29,8 +29,8 @@ QQ：1502335861
 
 ## 二、源码运行
 ### 0. 确保你有能力使用此脚本
-- 你有基础Python知识
-- 你懂得如何[提问](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md)
+- 会用电脑
+- 懂得如何[提问](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md)
 
 ### 1. 安装
  - 请先安装Python并克隆repo   
