@@ -56,9 +56,7 @@ pip install -r requirements.txt
 
 ## 注意事项
 - 请求间隔时间太短可能会被业务风控
-- Fork repo时记得给个star
-- 请不要在B站过度宣传此脚本
-- 转载此脚本时请标注出处
+- 转载此脚本时必须标注出处
 #### 祝大家都能有美好的漫展演出体验(っ^_^)っ
    
 ![回到三次元](https://github.com/user-attachments/assets/81ede360-2f8d-48c1-a384-ffddb7c68e22)
