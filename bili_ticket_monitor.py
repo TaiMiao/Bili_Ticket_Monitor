@@ -143,6 +143,7 @@ class Monitor:
 
 if __name__ == "__main__":
     clear_screen()
+    print(f"{Fore.CYAN}项目github页面：https://github.com/TaiMiao/Bili_Ticket_Monitor \n")
     print(f"{Fore.YELLOW}监控ID: {Config.TICKET_ID} | 刷新间隔: {Config.REFRESH_INTERVAL}s")
     print("=" * 40)
     Monitor().start()
