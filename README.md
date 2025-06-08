@@ -29,15 +29,13 @@ QQ：1502335861(暂时封号中)
 
 ## 二、源码运行
 ### 0. 确保你有能力使用此脚本
-- 会用电脑
-- 懂得如何[提问](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md)
+- #### 会用电脑 ####
+- ### 会用电脑 ###
+- ## 会用电脑 ##
 
-### 1. 安装
- - 请先安装Python并克隆repo   
-```shell
-cd Bili_Ticket_Monitor
-pip install -r requirements.txt
-```
+### 1. 前期准备
+ - 安装Python环境
+ - 安装`requirements.txt`里的库
 
 ### 2. 配置
 - 如图，将你需要监测的票务ID填入对应的地方，其余配置根据文件内注释可自行更改
