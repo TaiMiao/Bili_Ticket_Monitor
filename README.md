@@ -4,7 +4,7 @@
 
 开源免费，实时监测Bilibili会员购漫展演出余票状态(无抢票功能)   
 对于脚本有任何问题可以提交issue或联系作者    
-TG：@TaiMiao_HK   
+TG：https://t.me/TaiMiao_Channel   
 QQ：1502335861
    
 推荐使用此脚本的漫展(有回流票的大型漫展)：BW (Bilibili World)、BML (Bilibili Macro Link)......  
