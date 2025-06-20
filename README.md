@@ -38,7 +38,9 @@ TG：https://t.me/TaiMiao_Channel
 
 ### 2. 配置
 - 如图，将你需要监测的票务ID填入对应的地方，其余配置根据文件内注释可自行更改
-![教学](https://github.com/user-attachments/assets/549d4f00-ea87-41bc-ae46-e84e09d85df6)
+   
+![image](https://github.com/user-attachments/assets/cb075b6c-6212-4b5b-be51-5422d42df097)
+
 
 
 ### 3. 运行
