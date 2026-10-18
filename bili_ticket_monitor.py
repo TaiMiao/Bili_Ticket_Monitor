@@ -85,7 +85,6 @@ class Config:
     CONFIRM_UPDATES = 2  # 连续 N 次轮询一致，才确认为「状态变化」
     CONFIRM_REMOVALS = 2  # 连续 N 次轮询缺失，才确认为「移除」
     MAX_BACKOFF = 60.0  # 出错退避上限（秒）
-    RATE_LIMIT_BACKOFF = 10.0  # 命中 429 时的最小退避（秒）
 
     HEADERS = {
         "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 "
@@ -556,7 +555,6 @@ class Monitor:
         self.polls = 0
         self.failures = 0
         self.error_count = 0
-        self.rate_limited = False
         self.last_error = ""
         self.warning = ""
         self.event_name = "正在获取票务信息…"
@@ -619,7 +617,8 @@ class Monitor:
             if status == 412:
                 self._fail("触发风控！立即停止！", fatal=True)
             elif status == 429:
-                self._fail("流量限制 (429)", rate_limited=True)
+                # 429 只是被限流，忽略即可：不计错误、不写日志、不退避，下一轮照常请求
+                pass
             else:
                 self._fail(f"HTTP错误 {status}")
         except requests.Timeout:
@@ -635,7 +634,6 @@ class Monitor:
 
     def _accept(self, name: str, tickets: list[Ticket]) -> None:
         self.failures = 0
-        self.rate_limited = False
         self.last_error = ""
         self.event_name = name
 
@@ -657,11 +655,10 @@ class Monitor:
         for change in self.board.update(tickets):
             self.logger.info(f"[Ticket {self.settings.ticket_id}] {describe_change(change)}")
 
-    def _fail(self, message: str, *, fatal: bool = False, rate_limited: bool = False) -> None:
+    def _fail(self, message: str, *, fatal: bool = False) -> None:
         self.error_count += 1
         self.failures += 1
         self.last_error = message
-        self.rate_limited = rate_limited
         self.logger.error(f"[Ticket {self.settings.ticket_id}] {message}")
         if fatal:
             self.fatal = True
@@ -671,8 +668,6 @@ class Monitor:
         if self.failures:
             base = max(self.settings.interval, 1.0)
             delay = min(Config.MAX_BACKOFF, base * (2 ** min(self.failures - 1, 5)))
-            if self.rate_limited:
-                delay = max(delay, Config.RATE_LIMIT_BACKOFF)
             return delay
         low = 1.0 - Config.JITTER_RATIO
         high = 1.0 + Config.JITTER_RATIO

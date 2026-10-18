@@ -77,7 +77,6 @@ TG：https://t.me/TaiMiao_Channel
 | `CONFIRM_UPDATES` | `2` | 连续几次观测一致才算状态变化 |
 | `CONFIRM_REMOVALS` | `2` | 连续几次观测缺失才算票种被移除 |
 | `MAX_BACKOFF` | `60.0` | 出错退避上限（秒） |
-| `RATE_LIMIT_BACKOFF` | `10.0` | 命中 429 时的最小退避（秒） |
 
 图片位置示意（旧版截图，配置项位置一致）：
 
