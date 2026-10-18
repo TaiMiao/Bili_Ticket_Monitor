@@ -1,0 +1,9 @@
+Version: 1.1.4.5
+CompanyName: TaiMiao
+FileDescription: Bili_Ticket_Monitor
+InternalName: bili_ticket_monitor
+LegalCopyright: https://github.com/TaiMiao/Bili_Ticket_Monitor
+ProductName: Bili_Ticket_Monitor
+Translation:
+  - langID: 0x0804
+    charsetID: 1200
