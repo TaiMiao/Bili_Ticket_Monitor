@@ -5,3 +5,4 @@ dist/
 metadata.txt
 *.log
 *.bak
+aili_ticket_monitor.py
